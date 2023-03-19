@@ -1,0 +1,38 @@
+@use "../variables" as *;
+
+.footer {
+  min-height: 50px;
+  user-select: none;
+  box-shadow: 0 -1px 1px 1px $gray-500;
+  color: $theme-text;
+  background: $theme-bg;
+}
+
+.account {
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: $theme-text;
+
+  &:hover {
+    color: $indigo;
+  }
+}
+
+.love:hover {
+  &::before {
+    animation: heart 1s ease-in-out infinite;
+  }
+  @keyframes heart {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    33% {
+      transform: scale(0.8);
+    }
+    66% {
+      transform: scale(1.2);
+    }
+  }
+}

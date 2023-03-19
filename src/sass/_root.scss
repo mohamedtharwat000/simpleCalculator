@@ -1,0 +1,35 @@
+@use "variables" as *;
+
+// mixin to make css variables from sass map
+@mixin css-variables($map: $global) {
+  @each $custon-property, $value in $map {
+    --#{$custon-property}: #{$value};
+  }
+}
+
+/* css global variables */
+html {
+  @include css-variables($global);
+}
+
+/* css light theme (default)*/
+html {
+  @include css-variables($light-theme);
+}
+
+/* css dark theme */
+html {
+  @media (prefers-color-scheme: dark) {
+    @include css-variables($dark-theme);
+  }
+}
+
+/* js light theme */
+[data-theme="light"] {
+  @include css-variables($light-theme);
+}
+
+/* js dark theme */
+[data-theme="dark"] {
+  @include css-variables($dark-theme);
+}
