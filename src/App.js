@@ -10,9 +10,8 @@ import "./sass/bootstrap.scss";
 import "./sass/bootstrap-icons.scss";
 import "./js/bootstrap.js";
 
-// importing custom css and js
+// importing custom css
 import "./sass/style.scss";
-import "./js/theme.js";
 
 export default function App() {
   return (
