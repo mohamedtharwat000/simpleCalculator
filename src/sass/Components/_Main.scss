@@ -7,7 +7,7 @@
 
 .screen {
   & output {
-    min-height: 90px;
+    min-height: 80px;
     padding: 10px;
     overflow-wrap: break-word;
     line-height: 1.2;
@@ -15,21 +15,19 @@
   color: $theme-text;
   background-color: $theme-screen;
   max-width: 400px;
-  min-height: 150px;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
 }
 
 .buttons {
   & button {
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
     color: $theme-text;
-    flex-shrink: 0;
+    background-color: $theme-bg2;
   }
   background-color: $theme-bg;
   max-width: 400px;
-  min-height: 400px;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
 }

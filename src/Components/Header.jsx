@@ -3,19 +3,19 @@ import React from "react";
 export default function Header() {
   function jsTheme() {
     // global variables
-    const themeStored = localStorage.getItem("theme");
+    const storedTheme = localStorage.getItem("theme");
     const rootDataset = document.documentElement.dataset;
-    const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
-    const themeSwitcher = document.getElementById("theme-switcher");
+    const darkThemeSupport = window.matchMedia("(prefers-color-scheme: dark)");
+    const switchThemeButton = document.getElementById("theme-switcher");
 
     // function to define user theme based on dark mode support
     const customTheme = function () {
-      rootDataset.theme = darkTheme.matches ? "dark" : "light";
+      rootDataset.theme = darkThemeSupport.matches ? "dark" : "light";
     };
 
     // function to (check|uncheck) the theme switcher
-    const themeSwitcherCheck = function () {
-      themeSwitcher.checked = rootDataset.theme === "dark" ? true : false;
+    const checkThemeButton = function () {
+      switchThemeButton.checked = rootDataset.theme === "dark" ? true : false;
     };
 
     // function to define bootstrap theme based on user theme
@@ -23,30 +23,29 @@ export default function Header() {
       rootDataset.bsTheme = rootDataset.theme;
     };
 
-    if (themeStored) {
-      rootDataset.theme = themeStored;
-      themeSwitcherCheck();
+    if (storedTheme) {
+      rootDataset.theme = storedTheme;
+      checkThemeButton();
       bootstrapTheme();
     } else {
       customTheme();
-      themeSwitcherCheck();
+      checkThemeButton();
       bootstrapTheme();
     }
 
     // is user change the os or browser theme
-    darkTheme.onchange = function () {
+    darkThemeSupport.onchange = function () {
       jsTheme();
-      darkTheme.onchange = function () {};
+      darkThemeSupport.onchange = function () {};
     };
   }
 
   // is user change theme with theme switcher
-  const themeSwitcher = function (e) {
+  const switchThem = function (e) {
     const rootDataset = document.documentElement.dataset;
-
     rootDataset.theme = rootDataset.theme === "light" ? "dark" : "light";
     rootDataset.bsTheme = rootDataset.theme;
-    // localStorage.setItem("theme", rootDataset.theme);
+    localStorage.setItem("theme", rootDataset.theme);
   };
 
   React.useEffect(() => {
@@ -70,7 +69,7 @@ export default function Header() {
               type="checkbox"
               className="switcher col-auto order-2"
               id="theme-switcher"
-              onChange={themeSwitcher}
+              onChange={switchThem}
             />
 
             <label className="col-auto order-1" htmlFor="theme-switcher">

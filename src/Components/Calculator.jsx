@@ -4,7 +4,7 @@ import Buttons from "./Calculator/Buttons";
 
 export default function Calculator() {
   const [calculatorData, setCalculatorData] = React.useState({
-    opration: "",
+    operation: "",
     result: "",
   });
   return (

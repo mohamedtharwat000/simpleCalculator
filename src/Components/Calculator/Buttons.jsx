@@ -8,7 +8,7 @@ export default function Buttons(props) {
     e.preventDefault();
     calc(e, calculatorData, setCalculatorData);
   };
-  const ButtonsArr = [
+  const allButtonsArr = [
     "AC",
     "()",
     "%",
@@ -31,7 +31,7 @@ export default function Buttons(props) {
     "=",
   ];
 
-  const allButtons = ButtonsArr.map((button, index) => {
+  const allButtons = allButtonsArr.map((button, index) => {
     return (
       <Button
         key={index}
@@ -44,10 +44,7 @@ export default function Buttons(props) {
 
   return (
     <div>
-      <div
-        className="buttons p-2 mx-auto row row-cols-4 \
-      justify-content-evenly align-items-center border border-secondary"
-      >
+      <div className="buttons p-4 g-2 mx-auto row row-cols-4 justify-content-evenly border border-secondary">
         {allButtons}
       </div>
     </div>
