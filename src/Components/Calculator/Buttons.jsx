@@ -11,6 +11,10 @@ export default function Buttons(props) {
   const allButtonsArr = [
     "AC",
     "()",
+    "",
+    "H",
+    "PI",
+    "**",
     "%",
     "/",
     "7",
@@ -36,7 +40,11 @@ export default function Buttons(props) {
       <Button
         key={index}
         value={button}
-        type={button >= "0" && button <= "9" ? "operand" : "operator"}
+        type={
+          (button >= "0" && button <= "9") || button === "PI"
+            ? "operand"
+            : "operator"
+        }
         onClick={changeScreenData}
       />
     );
@@ -44,7 +52,7 @@ export default function Buttons(props) {
 
   return (
     <div>
-      <div className="buttons p-4 g-2 mx-auto row row-cols-4 justify-content-evenly border border-secondary">
+      <div className="buttons p-2 py-4 g-2 mx-auto row row-cols-4 justify-content-evenly border border-secondary">
         {allButtons}
       </div>
     </div>

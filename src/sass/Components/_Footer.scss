@@ -3,9 +3,10 @@
 .footer {
   min-height: 50px;
   user-select: none;
-  box-shadow: 0 -1px 1px 1px $gray-500;
   color: $theme-text;
   background: $theme-bg;
+  border-top: 1px solid $gray-500;
+  min-width: 350px;
 }
 
 .account {

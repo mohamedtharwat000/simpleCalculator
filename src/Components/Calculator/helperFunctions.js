@@ -8,6 +8,7 @@ export default function calc(event, state, setState) {
     setState({
       operation: "",
       result: "",
+      offsetLeft: 0,
     });
     return;
   }
@@ -30,10 +31,30 @@ export default function calc(event, state, setState) {
       newoperation.unshift("(");
       newoperation.push(")");
       newoperation = newoperation.join("");
+
       setState((prev) => ({
-        operation: isOperationFinshed ? prev.operation : newoperation,
+        ...prev,
         result: finalResult,
+        operation:
+          isOperationFinshed || prev.operation === ""
+            ? prev.operation
+            : newoperation,
       }));
+
+      if (finalResult) {
+        const operation = state.operation;
+        const savedHistory = localStorage.getItem("history");
+        let history;
+        if (savedHistory) {
+          history = JSON.parse(savedHistory);
+          history.push({ operation, finalResult });
+          localStorage.setItem("history", JSON.stringify(history));
+        } else {
+          history = [];
+          history.push({ operation, finalResult });
+          localStorage.setItem("history", JSON.stringify(history));
+        }
+      }
     } catch (error) {
       setState((prev) => ({
         ...prev,
@@ -45,6 +66,7 @@ export default function calc(event, state, setState) {
   if (isOperationFinshed) {
     if (type === "operator") {
       setState((prev) => ({
+        ...prev,
         operation: prev.operation + value,
         result: "",
       }));
@@ -53,6 +75,7 @@ export default function calc(event, state, setState) {
 
     if (type === "operand") {
       setState((prev) => ({
+        ...prev,
         operation: value,
         result: "",
       }));
@@ -62,6 +85,7 @@ export default function calc(event, state, setState) {
 
   if (value) {
     setState((prev) => ({
+      ...prev,
       operation: prev.operation + value,
       result: "",
     }));

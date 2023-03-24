@@ -3,31 +3,37 @@
 .main {
   color: $theme-text;
   background-color: $theme-bg2;
+  min-width: 350px;
 }
 
 .screen {
   & output {
-    min-height: 80px;
+    min-height: 65px;
     padding: 10px;
     overflow-wrap: break-word;
     line-height: 1.2;
   }
+  & i {
+    cursor: pointer;
+  }
+  font-size: 1.8rem;
   color: $theme-text;
   background-color: $theme-screen;
   max-width: 400px;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 .buttons {
   & button {
-    width: 75px;
-    height: 75px;
+    width: 65px;
+    height: 65px;
     color: $theme-text;
     background-color: $theme-bg2;
   }
+  color: $theme-text;
   background-color: $theme-bg;
   max-width: 400px;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 }

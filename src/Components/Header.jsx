@@ -9,7 +9,7 @@ export default function Header() {
     const switchThemeButton = document.getElementById("theme-switcher");
 
     // function to define user theme based on dark mode support
-    const customTheme = function () {
+    const setCustomTheme = function () {
       rootDataset.theme = darkThemeSupport.matches ? "dark" : "light";
     };
 
@@ -28,7 +28,7 @@ export default function Header() {
       checkThemeButton();
       bootstrapTheme();
     } else {
-      customTheme();
+      setCustomTheme();
       checkThemeButton();
       bootstrapTheme();
     }
@@ -36,12 +36,12 @@ export default function Header() {
     // is user change the os or browser theme
     darkThemeSupport.onchange = function () {
       jsTheme();
-      darkThemeSupport.onchange = function () {};
+      darkThemeSupport.onchange = null;
     };
   }
 
   // is user change theme with theme switcher
-  const switchThem = function (e) {
+  const switchTheme = function (e) {
     const rootDataset = document.documentElement.dataset;
     rootDataset.theme = rootDataset.theme === "light" ? "dark" : "light";
     rootDataset.bsTheme = rootDataset.theme;
@@ -53,23 +53,23 @@ export default function Header() {
   });
 
   return (
-    <nav className="header d-flex justify-content-center">
-      <div className="container-lg row align-items-center text-center py-1">
-        <div className="col-12 col-md-3 py-1 text-md-start">
+    <nav className="header fcenter">
+      <div className="container-lg row fcenter py-1">
+        <div className="col-12 col-md-3 py-1 text-center ">
           <i className="bi bi-calculator fs-1"></i>
         </div>
 
-        <div className="col-12 col-md-6 py-1">
+        <div className="col-12 col-md-6 py-1 fcenter">
           <h1>Simple Calculator</h1>
         </div>
 
         <div className="col-12 col-md-3 py-1">
-          <div className="row justify-content-center justify-content-md-end align-items-center">
+          <div className="row fcenter">
             <input
               type="checkbox"
               className="switcher col-auto order-2"
               id="theme-switcher"
-              onChange={switchThem}
+              onChange={switchTheme}
             />
 
             <label className="col-auto order-1" htmlFor="theme-switcher">

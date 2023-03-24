@@ -2,8 +2,12 @@
 @use "reset";
 @use "Components";
 
-@media (max-width: 300px) {
-  html {
-    display: none;
-  }
+.fcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  // outline: 1px solid #888;
 }
