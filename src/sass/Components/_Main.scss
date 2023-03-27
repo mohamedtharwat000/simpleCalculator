@@ -3,7 +3,10 @@
 .main {
   color: $theme-text;
   background-color: $theme-bg2;
-  min-width: 350px;
+  min-width: 320px;
+  & > div {
+    max-width: 400px;
+  }
 }
 
 .screen {
@@ -11,15 +14,13 @@
     min-height: 65px;
     padding: 10px;
     overflow-wrap: break-word;
-    line-height: 1.2;
   }
   & i {
     cursor: pointer;
   }
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: $theme-text;
   background-color: $theme-screen;
-  max-width: 400px;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 }
@@ -33,7 +34,15 @@
   }
   color: $theme-text;
   background-color: $theme-bg;
-  max-width: 400px;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
+}
+
+.history {
+  min-height: 200px;
+  font-size: 1.5rem;
+  color: $theme-text;
+  background-color: $theme-screen;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }

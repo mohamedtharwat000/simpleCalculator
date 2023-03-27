@@ -35,8 +35,7 @@ export default function Header() {
 
     // is user change the os or browser theme
     darkThemeSupport.onchange = function () {
-      jsTheme();
-      darkThemeSupport.onchange = null;
+      setCustomTheme();
     };
   }
 

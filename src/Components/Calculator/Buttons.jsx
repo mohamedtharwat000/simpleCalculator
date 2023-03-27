@@ -4,23 +4,25 @@ import calc from "./helperFunctions";
 
 export default function Buttons(props) {
   const { calculatorData, setCalculatorData } = props;
+
+  // calc function handle all logic
   const changeScreenData = (e) => {
-    e.preventDefault();
     calc(e, calculatorData, setCalculatorData);
   };
+
   const allButtonsArr = [
     "AC",
     "()",
-    "",
-    "H",
-    "PI",
-    "**",
+    "\u03C0" /** Pi */,
+    "H" /** history */,
+    "\u221A" /** square */,
+    "^" /** ** */,
     "%",
-    "/",
+    "\u00F7" /** / */,
     "7",
     "8",
     "9",
-    "*",
+    "\u00D7" /** * */,
     "4",
     "5",
     "6",
@@ -31,7 +33,7 @@ export default function Buttons(props) {
     "+",
     "0",
     ".",
-    "x",
+    "\u2297" /** x */,
     "=",
   ];
 
@@ -41,7 +43,10 @@ export default function Buttons(props) {
         key={index}
         value={button}
         type={
-          (button >= "0" && button <= "9") || button === "PI"
+          (button >= "0" && button <= "9") ||
+          button === "\u03C0" /* Pi */ ||
+          button === "." ||
+          button === "\u221A" /* squar2 */
             ? "operand"
             : "operator"
         }
