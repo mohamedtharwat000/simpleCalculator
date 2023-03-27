@@ -95,47 +95,54 @@ export default function calc(event, state, setState) {
 
       const finalResult = eval(safeOperation);
 
-      let newUserOperation = state.userOperation.split("");
-      let newJsOperation = state.jsOperation.split("");
-
-      newUserOperation.unshift("(");
-      newJsOperation.unshift("(");
-
-      newUserOperation.push(")");
-      newJsOperation.push(")");
-
-      newUserOperation = newUserOperation.join("");
-      newJsOperation = newJsOperation.join("");
-
-      setState((prev) => ({
-        ...prev,
-        result: finalResult,
-
-        userOperation:
-          isUserFinshed || prev.userOperation === ""
-            ? prev.userOperation
-            : newUserOperation,
-
-        jsOperation:
-          isJsFinshed || prev.jsOperation === ""
-            ? prev.jsOperation
-            : newJsOperation,
-      }));
-
       if (finalResult) {
+        //handle history in local storage
         const userOperation = state.userOperation;
         const savedHistory = localStorage.getItem("history");
         let history;
         if (savedHistory) {
           history = JSON.parse(savedHistory);
-          history.push({ userOperation, finalResult });
+          history.unshift({ userOperation, finalResult });
           localStorage.setItem("history", JSON.stringify(history));
         } else {
           history = [];
-          history.push({ userOperation, finalResult });
+          history.unshift({ userOperation, finalResult });
           localStorage.setItem("history", JSON.stringify(history));
         }
+
+        // add paranthesis to result
+        let newUserOperation = state.userOperation.split("");
+        let newJsOperation = state.jsOperation.split("");
+
+        newUserOperation.unshift("(");
+        newJsOperation.unshift("(");
+
+        newUserOperation.push(")");
+        newJsOperation.push(")");
+
+        newUserOperation = newUserOperation.join("");
+        newJsOperation = newJsOperation.join("");
+
+        // update state
+        setState((prev) => ({
+          ...prev,
+          result: finalResult,
+          userOperation:
+            isUserFinshed || prev.userOperation === ""
+              ? prev.userOperation
+              : newUserOperation,
+
+          jsOperation:
+            isJsFinshed || prev.jsOperation === ""
+              ? prev.jsOperation
+              : newJsOperation,
+          history: {
+            ...prev.history,
+            value: JSON.parse(localStorage.getItem("history")),
+          },
+        }));
       }
+
       return;
     } catch (err) {
       setState((prev) => ({
@@ -143,6 +150,7 @@ export default function calc(event, state, setState) {
         userOperation: prev.userOperation,
         jsOperation: prev.jsOperation,
       }));
+      return;
     }
   }
 
@@ -167,13 +175,6 @@ export default function calc(event, state, setState) {
         }));
         return;
       }
-    }
-
-    if (value === "=") {
-      setState((prev) => ({
-        ...prev,
-      }));
-      return;
     }
 
     setState((prev) => ({

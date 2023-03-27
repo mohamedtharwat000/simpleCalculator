@@ -26,7 +26,10 @@ export default function Calculator() {
     <div className="calculator row row-cols-1 fcenter">
       <>
         {calculatorData.history.status ? (
-          <History />
+          <History
+            calculatorData={calculatorData}
+            setCalculatorData={setCalculatorData}
+          />
         ) : (
           <Screen
             calculatorData={calculatorData}
