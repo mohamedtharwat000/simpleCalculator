@@ -2,11 +2,12 @@ import React from "react";
 
 export default function History(props) {
   const { calculatorData, setCalculatorData } = props;
+  console.log("history", calculatorData);
   const history = calculatorData.history.value.map((operation, index) => {
     return (
       <div
         key={index}
-        className="history__operations row m-0 row-cols-1 fs-1 border border-secondary"
+        className="history__operations mx-auto row row-cols-1 g-2 fs-2 border border-secondary overflow-auto"
       >
         <div className="my-2">{operation.userOperation}</div>
         <div className="my-2">{operation.finalResult}</div>
@@ -16,8 +17,8 @@ export default function History(props) {
 
   return (
     <div>
-      <div className="history p-4 mx-auto row row-cols-1 g-2 mt-0 text-end border border-secondary overflow-auto">
-        <span className="history__control fcenter justify-content-between">
+      <div className="history p-4 mt-0 mx-auto row row-cols-1 g-2 text-end border border-secondary overflow-auto">
+        <div className="history__control mb-2 fs-2 fcenter justify-content-between">
           <span>History</span>
           <span
             onClick={() => {
@@ -34,7 +35,7 @@ export default function History(props) {
           >
             X
           </span>
-        </span>
+        </div>
         {history}
       </div>
     </div>

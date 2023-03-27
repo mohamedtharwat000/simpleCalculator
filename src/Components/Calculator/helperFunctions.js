@@ -24,7 +24,12 @@ export default function calc(event, state, setState) {
     setState((prev) => {
       const defaultState = prev.defaultState;
       return {
+        defaultState,
         ...defaultState,
+        history: {
+          status: false,
+          value: JSON.parse(localStorage.getItem("history")) ?? [],
+        },
       };
     });
     return;
@@ -94,7 +99,7 @@ export default function calc(event, state, setState) {
 
       const finalResult = eval(safeOperation);
 
-      if (finalResult) {
+      if (finalResult || finalResult === 0) {
         //handle history in local storage
         const userOperation = state.userOperation;
         const savedHistory = localStorage.getItem("history");
