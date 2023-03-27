@@ -30,7 +30,7 @@ export default function History(props) {
                 },
               }));
             }}
-            className="btn btn-outline"
+            className="btn btn-outline-secondary"
           >
             X
           </span>

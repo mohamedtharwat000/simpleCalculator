@@ -24,7 +24,6 @@ export default function calc(event, state, setState) {
     setState((prev) => {
       const defaultState = prev.defaultState;
       return {
-        ...prev,
         ...defaultState,
       };
     });
