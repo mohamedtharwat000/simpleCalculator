@@ -4,11 +4,6 @@ export default function calc(event, state, setState) {
   const value = event.target.value;
   const type = event.target.attributes.type.value;
 
-  const isUserFinshed =
-    state.userOperation.startsWith("(") && state.userOperation.endsWith(")");
-  const isJsFinshed =
-    state.jsOperation.startsWith("(") && state.jsOperation.endsWith(")");
-
   if (value === "H") {
     setState((prev) => ({
       ...prev,
@@ -38,11 +33,15 @@ export default function calc(event, state, setState) {
   if (value === "\u2297" /** x */) {
     setState((prev) => {
       let jsLast;
-      if (prev.jsOperation.endsWith("Math.PI)")) {
+      if (prev.jsOperation.endsWith("Math.PI")) {
         jsLast = prev.jsOperation.lastIndexOf("Math.PI");
-      } else if (prev.jsOperation.endsWith("Math.sqrt)")) {
+      } else if (prev.jsOperation.endsWith("Math.sqrt")) {
         jsLast = prev.jsOperation.lastIndexOf("Math.sqrt");
+      } else {
+        jsLast =
+          prev.jsOperation.length === 0 ? 0 : prev.jsOperation.length - 1;
       }
+
       return {
         ...prev,
         userOperation: prev.userOperation.slice(
@@ -50,6 +49,7 @@ export default function calc(event, state, setState) {
           prev.userOperation.length - 1
         ),
         jsOperation: prev.jsOperation.slice(0, jsLast),
+        isFinshed: false,
       };
     });
     return;
@@ -125,32 +125,11 @@ export default function calc(event, state, setState) {
           localStorage.setItem("history", JSON.stringify(history));
         }
 
-        // add paranthesis to result
-        let newUserOperation = state.userOperation.split("");
-        let newJsOperation = state.jsOperation.split("");
-
-        newUserOperation.unshift("(");
-        newJsOperation.unshift("(");
-
-        newUserOperation.push(")");
-        newJsOperation.push(")");
-
-        newUserOperation = newUserOperation.join("");
-        newJsOperation = newJsOperation.join("");
-
         // update state
         setState((prev) => ({
           ...prev,
           result: finalResult,
-          userOperation:
-            isUserFinshed || prev.userOperation === ""
-              ? prev.userOperation
-              : newUserOperation,
-
-          jsOperation:
-            isJsFinshed || prev.jsOperation === ""
-              ? prev.jsOperation
-              : newJsOperation,
+          isFinshed: true,
           history: {
             ...prev.history,
             value: JSON.parse(localStorage.getItem("history")),
@@ -169,34 +148,48 @@ export default function calc(event, state, setState) {
     }
   }
 
-  if (value) {
-    if (isUserFinshed && isJsFinshed) {
-      if (type === "operator") {
-        setState((prev) => ({
-          ...prev,
-          userOperation: prev.userOperation + value,
-          jsOperation: prev.jsOperation + value,
-          result: "",
-        }));
-        return;
-      }
+  if (state.isFinshed) {
+    if (type === "operator") {
+      setState((prev) => {
+        // add paranthesis to result
+        let newUserOperation = state.userOperation.split("");
+        let newJsOperation = state.jsOperation.split("");
 
-      if (type === "operand") {
-        setState((prev) => ({
+        newUserOperation.unshift("(");
+        newJsOperation.unshift("(");
+
+        newUserOperation.push(")");
+        newJsOperation.push(")");
+
+        newUserOperation = newUserOperation.join("");
+        newJsOperation = newJsOperation.join("");
+        return {
           ...prev,
-          userOperation: value,
-          jsOperation: value,
+          userOperation: newUserOperation + value,
+          jsOperation: newJsOperation + value,
           result: "",
-        }));
-        return;
-      }
+          isFinshed: false,
+        };
+      });
+      return;
     }
 
-    setState((prev) => ({
-      ...prev,
-      userOperation: prev.userOperation + value,
-      jsOperation: prev.jsOperation + value,
-    }));
-    return;
+    if (type === "operand") {
+      setState((prev) => ({
+        ...prev,
+        userOperation: value,
+        jsOperation: value,
+        result: "",
+        isFinshed: false,
+      }));
+      return;
+    }
   }
+
+  setState((prev) => ({
+    ...prev,
+    userOperation: prev.userOperation + value,
+    jsOperation: prev.jsOperation + value,
+  }));
+  return;
 }

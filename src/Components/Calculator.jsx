@@ -11,6 +11,7 @@ export default function Calculator() {
     jsOperation: "",
     result: "",
     offsetLeft: 0,
+    isFinshed: false,
     history: {
       status: false,
       value: JSON.parse(localStorage.getItem("history")) ?? [],
