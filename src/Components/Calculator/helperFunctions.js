@@ -38,7 +38,6 @@ export default function calc(event, state, setState) {
   if (value === "\u2297" /** x */) {
     setState((prev) => {
       let jsLast;
-      console.log(prev.jsOperation);
       if (prev.jsOperation.endsWith("Math.PI)")) {
         jsLast = prev.jsOperation.lastIndexOf("Math.PI");
       } else if (prev.jsOperation.endsWith("Math.sqrt)")) {
