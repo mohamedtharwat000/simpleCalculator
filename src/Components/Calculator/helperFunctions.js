@@ -36,11 +36,23 @@ export default function calc(event, state, setState) {
   }
 
   if (value === "\u2297" /** x */) {
-    setState((prev) => ({
-      ...prev,
-      userOperation: prev.userOperation.slice(0, prev.userOperation.length - 1),
-      jsOperation: prev.jsOperation.slice(0, prev.jsOperation.length - 1),
-    }));
+    setState((prev) => {
+      let jsLast;
+      console.log(prev.jsOperation);
+      if (prev.jsOperation.endsWith("Math.PI)")) {
+        jsLast = prev.jsOperation.lastIndexOf("Math.PI");
+      } else if (prev.jsOperation.endsWith("Math.sqrt)")) {
+        jsLast = prev.jsOperation.lastIndexOf("Math.sqrt");
+      }
+      return {
+        ...prev,
+        userOperation: prev.userOperation.slice(
+          0,
+          prev.userOperation.length - 1
+        ),
+        jsOperation: prev.jsOperation.slice(0, jsLast),
+      };
+    });
     return;
   }
 

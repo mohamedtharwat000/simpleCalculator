@@ -2,7 +2,6 @@ import React from "react";
 
 export default function History(props) {
   const { calculatorData, setCalculatorData } = props;
-  console.log("history", calculatorData);
   const history = calculatorData.history.value.map((operation, index) => {
     return (
       <div

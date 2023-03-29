@@ -22,8 +22,6 @@ export default function Calculator() {
     ...defaultState,
   });
 
-  console.log("calculator", calculatorData);
-
   return (
     <div className="calculator row row-cols-1 fcenter">
       <>
