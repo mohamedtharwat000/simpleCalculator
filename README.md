@@ -6,6 +6,9 @@ This is a simple calculator app built with React. It has a clean and minimalist 
 
 [Simple Calculator](https://mohamedtharwat000.github.io/simpleCalculator/build/)
 
+**screenshots**
+![](https://raw.githubusercontent.com/mohamedtharwat000/simpleCalculator/master/screenshots/Screenshot%202023-03-29%20at%2001-51-17%20Simple%20Calculator.png)
+
 ## Features
 
 - Performs basic calculations (+, -, *, /, %)
@@ -188,7 +191,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ## Credits
 
 created by Mohamed Tharwat
-
-
-**screenshots**
-![](https://raw.githubusercontent.com/mohamedtharwat000/simpleCalculator/master/screenshots/Screenshot%202023-03-29%20at%2001-51-17%20Simple%20Calculator.png)
